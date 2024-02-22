@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP JS</title>
+    <style>
+        img {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <section id="mySection">
+        <h1>Essais 2 JavaScript</h1>
+        <button onclick="maFonction()">changer le titre</button>
+        <button onclick="changeColorBG()">changer la couleur BG</button>
+        <img id="myImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png" alt="image logo Js" onmouseover=survolImg(this) onmouseout=survolImgBack(this)>
+    </section>
+
+    <section>
+        <h1>validation formulaire</h1>
+        <form >
+            <label for="Fname">Nom</label>
+            <input type="text" name="Fname"  id="Fname">
+            <br>
+            <label for="Lname">Pr&eacute;nom</label>
+            <input type="text" name="Lname"  id="Lname">
+            <br>
+            <button type="submit" onclick="formulaireValid(this)">Envoyer</button>
+
+            <p id="msgErreur"></p>
+        </form>
+    </section>
+    <script type="text/javascript">
+        function maFonction()
+        {
+            var personne;
+            personne = prompt("Entrer le titre");
+
+            if (personne != null){
+
+                const h1Elem = document.querySelector('h1');
+                h1Elem.textContent = personne;
+            }
+           
+        }
+        
+        function changeColorBG()
+        {
+            document.getElementById("mySection").style.backgroundColor = "lightblue";
+        }
+
+
+        function survolImg()
+        {
+
+            document.getElementById("myImg").style.height = "10rem";
+            document.getElementById("myImg").style.width = "10rem";
+        }
+
+        function survolImgBack()
+        {
+
+            document.getElementById("myImg").style.height = "3rem";
+            document.getElementById("myImg").style.width = "3rem";
+
+        
+        }
+
+        function formulaireValid()
+        {
+            const nom = document.getElementById("Fname").value;
+            const prenom = document.getElementById("Lname").value;
+            var erreur =  document.getElementById("msgErreur")
+
+            if (nom == "" && prenom == "")
+            {
+               erreur.innerHTML= "Impossible d'envoyer sans insérer le nom et le prénom";
+                
+            }
+            else{
+                alert("formulaire bien rempli")
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>

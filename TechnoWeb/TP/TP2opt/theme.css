@@ -1,0 +1,48 @@
+body {
+    background-image: url("gradientbg.png");
+    background-color:bisque;
+    background-repeat: repeat-x;
+    background-position: top;
+    background-attachment: fixed;
+}
+/*header*/
+
+.header {
+    display: flex;
+    background-color: aliceblue;
+    justify-content: space-between;
+}
+
+/*text*/
+
+p {
+    font-family: Verdana, sans-serif
+}
+
+h1, h2{
+    text-decoration-line: underline;
+}
+
+/*lien*/
+
+a {
+    color: rgb(131, 169, 131);
+}
+
+/*lien visité*/
+
+a:visited{
+    color: rgb(0, 49, 0);
+}
+
+/*passage souris sur les lien*/
+
+a:hover{
+    color: orange;
+}
+
+.tab table,td,tr {
+    border: 1px solid gray;
+}
+  
+
