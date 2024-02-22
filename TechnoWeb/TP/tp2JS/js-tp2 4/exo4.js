@@ -23,9 +23,9 @@ window.onload = function () {
 	function tictac() {
 		var date = new Date();
 
-		var heures = date.getHours();
-		var minutes = date.getMinutes();
-		var secondes = date.getSeconds();
+		heures = date.getHours();
+		minutes = date.getMinutes();
+		secondes = date.getSeconds();
 
 		images = Array.from(document.querySelectorAll('span img'))
 		
