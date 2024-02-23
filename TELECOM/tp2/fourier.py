@@ -18,13 +18,18 @@ import tp1_0_stud
 
 def an(n,A):
     if n % 2== 0:
-        return 0
+        return 0.0
     return 8*A/((math.pi*n)**2)
+def bn(n,A):
+    return 0.0
+def an1(n,A):
+    return 0.0
+def bn1(n,A):
+    return -2*A/(math.pi*n)
+    
 
-def bn():
-    return 0
 
-def make_st(A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
+def make_st(an, bn, A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
     """
         Creer un signal s(t) de fourier
     """
@@ -34,13 +39,15 @@ def make_st(A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
     sig_t = [0.0]*N
     sig_s = [0.0]*N
     
-    
     lan = [0.0]
     lbn = [0.0]
+
+
     n = 1 
     while n < nmax:         # pour chaque harmonique... on ajoute sa contribution 
         lan.append(an(n,A))
-        lbn.append(bn())
+        lbn.append(bn(n,A))
+
         n+=1
 
     for i in range(N): # pour chaque sample i
@@ -65,32 +72,34 @@ def make_st(A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
 
 if __name__ == '__main__':
     #paramètre signal
-
+    
     a=1.5
     f=750.0
     fe=8000
     nmax=32
     d=3*1/f 
-
+    
     
 
     # Generation du signal fourier
 
-    x1,yS,lan,lbn = make_st(a,f,fe,nmax,d) #signaux
+    x1,yS,lan,lbn= make_st(an1,bn1,a,f,fe,nmax,d) #signaux
     n_array = [i for i in range(nmax)] # les harmoniques
     
-    # Representation graphique
+    # Representation graphique 
 
     fig,ax = plt.subplots(3)
 
     tp1_0_stud.plot_on_ax(ax[0],x1,yS,f"Sin Wave1 : a={a}, f={f}, fe={fe}, nmax={nmax}, d={d}", format="bo-")
     tp1_0_stud.decorate_ax(ax[0],"S(kte)")
     
-    tp1_0_stud.plot_on_ax(ax[1],n_array,lan,f"an de S(kte): a={a}, f={f}, fe={fe}, nmax={nmax}, d={d}", format="go-")
+    tp1_0_stud.plot_on_ax(ax[1],n_array,lan,f"an de S(kte): a={a}, f={f}, fe={fe}, nmax={nmax}, d={d}", format="go")
     tp1_0_stud.decorate_ax(ax[1],"an de S(kte)")
 
-    tp1_0_stud.plot_on_ax(ax[2],n_array,lbn,f"bn de S(kte): a={a}, f={f}, fe={fe}, nmax={nmax}, d={d}", format="go-")
+    tp1_0_stud.plot_on_ax(ax[2],n_array,lbn,f"bn de S(kte): a={a}, f={f}, fe={fe}, nmax={nmax}, d={d}", format="go")
     tp1_0_stud.decorate_ax(ax[2],"bn de S(kte)")
+
+    
     
 
     plt.savefig("./basic_sin.png")
