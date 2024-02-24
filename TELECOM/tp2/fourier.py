@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-sys.path.append("/users/etudiant/f/fm306941/l2_miage/TELECOM/tp1")
+sys.path.append("TELECOM/tp1")
 
 import tp1_0_stud
 
@@ -26,6 +26,12 @@ def an1(n,A):
     return 0.0
 def bn1(n,A):
     return -2*A/(math.pi*n)
+def an2(n,A):
+    return 0.0
+def bn2(n,A):
+    if n % 2 == 0:
+        return 0
+    return math.sqrt(an1(n,A)**2 + bn1(n,A)**2)
     
 
 
@@ -38,13 +44,14 @@ def make_st(an, bn, A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
     te = 1.0/fe
     sig_t = [0.0]*N
     sig_s = [0.0]*N
+
     
     lan = [0.0]
     lbn = [0.0]
 
 
     n = 1 
-    while n < nmax:         # pour chaque harmonique... on ajoute sa contribution 
+    while n < nmax:        
         lan.append(an(n,A))
         lbn.append(bn(n,A))
 
@@ -54,7 +61,7 @@ def make_st(an, bn, A=1.0, f=440.0, fe=8000.0, nmax=0, d=1.0):
         t = i*te    #instant correspondant 
         sig_t[i] = t
         n = 1 #calcul de la valeur sample 
-        while n < nmax:         # pour chaque harmonique... on ajoute sa contribution 
+        while n < 10:         # pour chaque harmonique... on ajoute sa contribution 
             sig_s[i] += lan[n] * math.cos(2*math.pi*n*f*t) + lbn[n] * math.sin(2*math.pi*n*f*t)
             n+=1
 
@@ -83,7 +90,7 @@ if __name__ == '__main__':
 
     # Generation du signal fourier
 
-    x1,yS,lan,lbn= make_st(an1,bn1,a,f,fe,nmax,d) #signaux
+    x1,yS,lan,lbn= make_st(an2,bn2,a,f,fe,nmax,d) #signaux
     n_array = [i for i in range(nmax)] # les harmoniques
     
     # Representation graphique 
