@@ -24,6 +24,7 @@ def plot_fft(N, freqStep, Fe, t, s_t, s_f):
     s_f = s_f/N    # Normalization => ainsi le module ne dependra
                    # de la longueur du signal ou de sa fe
     freq = freqStep * np.arange(-N/2, N/2)  # ticks in frequency domain
+    
 
     #=== Affichage console des valeurs des raies
     for i,r in enumerate(list(s_f)):
@@ -31,8 +32,8 @@ def plot_fft(N, freqStep, Fe, t, s_t, s_f):
 
     #==== Plot des spectres 
     plt.figure(figsize=(8,8))
-    plt.subplots_adjust(hspace=.6)
-    # Plot time data ---------------------------------------
+    plt.subplots_adjust(hspace=.6) # espace entre les figures
+    # Plot time data --------------------------------------
     plt.subplot(3,1,1)
     plt.plot(t, s_t, '.-', label="N={}, fe={}".format(N,Fe))
     plt.grid(True)
@@ -71,15 +72,24 @@ if __name__ == '__main__':
     #====  Generation d'un signal via numpy !
     t = np.arange(N)*Te         # N ticks in time domain, t = n*Te
                                 # t vector covers 3 periods of cos.
-    s_t = a*np.cos(2*math.pi*f*t) # cos
+    s_cos = a*np.cos(2*np.pi*f*t) # cos
+    s_ds = 2*a*((f*t)-np.floor(f*t)-0.5) #dent de scie
+    s_c = 2*(2*np.floor(f*t)-np.floor(2*f*t))+1  # carre
     s_t = a*(4*(abs(t*f-np.floor(t*f+0.5)))-1.0) # triangle
+
         
     #==== Calcul du spectre du signal 
+    s_fds = np.fft.fft(s_ds)       # Spectrum
+    print("fft result is a {} of len {} of type {}\n".format(type(s_fds),len(s_fds),type(s_fds[0])))
+
     s_f = np.fft.fft(s_t)       # Spectrum
     print("fft result is a {} of len {} of type {}\n".format(type(s_f),len(s_f),type(s_f[0])))
 
     # Plot
+    plot_fft(N, freqStep,  Fe, t, s_ds, s_fds)
+    print(3*'\n')
     plot_fft(N, freqStep,  Fe, t, s_t, s_f)
 
     plt.savefig("fft_example{}.png".format(N))
     plt.show()
+ 

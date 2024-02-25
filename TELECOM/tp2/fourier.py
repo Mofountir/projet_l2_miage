@@ -31,7 +31,7 @@ def an2(n,A):
 def bn2(n,A):
     if n % 2 == 0:
         return 0
-    return math.sqrt(an1(n,A)**2 + bn1(n,A)**2)
+    return np.abs(-2*A/(math.pi*n))
     
 
 
