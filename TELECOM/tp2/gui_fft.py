@@ -11,6 +11,7 @@ whole number freqStep, the bilateral spectrum will display two non-zero point.
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import coefs
 
 
 def plot_fft(N, freqStep, Fe, t, s_t, s_f):
@@ -59,36 +60,39 @@ def plot_fft(N, freqStep, Fe, t, s_t, s_f):
 #==============================================
 
 if __name__ == '__main__':
-    N = 32  # the number of points in signal s(n*te) et S(n*Fe)
+    N = 256  # the number of points in signal s(n*te) et S(n*Fe)
             # Power of 2 !
-    Fe = 8000.       # the sampling rate
+    Fe = 1000.       # the sampling rate
     Te = 1./Fe       # the sampling period
     freqStep = Fe/N  # resolution of the frequency IN FREQUENCY DOMAIN
     f = 3*freqStep # frequency of the sine wave
                      # On choisit un multiple de freqstep
     T = 1.0/f        # periode de la sinusoide
-    a = 255
+    a = 1
     
     #====  Generation d'un signal via numpy !
     t = np.arange(N)*Te         # N ticks in time domain, t = n*Te
                                 # t vector covers 3 periods of cos.
-    s_cos = a*np.cos(2*np.pi*f*t) # cos
-    s_ds = 2*a*((f*t)-np.floor(f*t)-0.5) #dent de scie
-    s_c = 2*(2*np.floor(f*t)-np.floor(2*f*t))+1  # carre
-    s_t = a*(4*(abs(t*f-np.floor(t*f+0.5)))-1.0) # triangle
+    s_cos1 = a*np.cos(2*np.pi*10*t) # cos
+    s_cos2 = a*np.cos(2*np.pi*20*t) # cos
+    s_cos3 = a*np.cos(2*np.pi*400*t) # cos
+
+    s_cos = s_cos1+s_cos2+s_cos3
+
+    #s_ds = 2*a*((f*t)-np.floor(f*t)-0.5) #dent de scie
+    #s_c = 2*(2*np.floor(f*t)-np.floor(2*f*t))+1  # carre
+    #s_t = a*(4*(abs(t*f-np.floor(t*f+0.5)))-1.0) # triangle
 
         
     #==== Calcul du spectre du signal 
-    s_fds = np.fft.fft(s_ds)       # Spectrum
-    print("fft result is a {} of len {} of type {}\n".format(type(s_fds),len(s_fds),type(s_fds[0])))
+    s_f = np.fft.fft(coefs.Coef())       # Spectrum
+    #print("fft result is a {} of len {} of type {}\n".format(type(s_f),len(s_f),type(s_f[0])))
 
-    s_f = np.fft.fft(s_t)       # Spectrum
-    print("fft result is a {} of len {} of type {}\n".format(type(s_f),len(s_f),type(s_f[0])))
 
     # Plot
-    plot_fft(N, freqStep,  Fe, t, s_ds, s_fds)
+    plot_fft(N, freqStep,  Fe, t, s_cos, s_f)
     print(3*'\n')
-    plot_fft(N, freqStep,  Fe, t, s_t, s_f)
+    
 
     plt.savefig("fft_example{}.png".format(N))
     plt.show()

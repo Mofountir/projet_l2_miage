@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 import os
 
-sys.path.append("~/Desktop/projet_l2_miage/TELECOM/tp2")
+sys.path.append("TELECOM/tp2")
 
 import gui_fft
 #==============================================
