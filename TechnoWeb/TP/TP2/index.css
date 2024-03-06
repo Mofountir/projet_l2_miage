@@ -24,4 +24,32 @@ body {
 select {
     font-size: 20px;
   }
+
+
+
+
+
+
+
+.btn-baton {
+    width: 100px;
+    height: 50px;
+    background-color: #ccc;
+    color: #000;
+    border: 1px solid #999;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+  
+.btn-baton:hover, .btn-rejouer:hover {
+    background-color: #ddd;
+}
+
+.btn-baton:active, .btn-rejouer:active {
+    background-color: #bbb;
+}
+.btn-baton:focus, .btn-rejouer:focus {
+    outline: 2px solid #000;
+}
   

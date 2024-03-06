@@ -57,10 +57,18 @@ def plot_fft(N, freqStep, Fe, t, s_t, s_f):
     plt.xlabel('Frequency')
     plt.ylabel('S(F) Phase (Radian)')
 
+def convolution(x, h, L):
+    y = np.zeros(L)
+    for n in range(len(x)):
+        for k in range(L):
+            
+            y[n] += h[k] * x[n - k]
+    return y
+
 #==============================================
 
 if __name__ == '__main__':
-    N = 256  # the number of points in signal s(n*te) et S(n*Fe)
+    N = 35  # the number of points in signal s(n*te) et S(n*Fe)
             # Power of 2 !
     Fe = 1000.       # the sampling rate
     Te = 1./Fe       # the sampling period
@@ -78,19 +86,30 @@ if __name__ == '__main__':
     s_cos3 = a*np.cos(2*np.pi*400*t) # cos
 
     s_cos = s_cos1+s_cos2+s_cos3
-
+    filtre = coefs.Coef()
     #s_ds = 2*a*((f*t)-np.floor(f*t)-0.5) #dent de scie
     #s_c = 2*(2*np.floor(f*t)-np.floor(2*f*t))+1  # carre
     #s_t = a*(4*(abs(t*f-np.floor(t*f+0.5)))-1.0) # triangle
 
+    
         
     #==== Calcul du spectre du signal 
-    s_f = np.fft.fft(coefs.Coef())       # Spectrum
+    #s_f = np.fft.fft(s_cos)       # Spectrum
+ 
     #print("fft result is a {} of len {} of type {}\n".format(type(s_f),len(s_f),type(s_f[0])))
+    
+   
+    
+    
+    
+
+    s_f = np.fft.fft(convolution(s_cos,filtre,N))       # Spectrum apres filtrage
+
 
 
     # Plot
-    plot_fft(N, freqStep,  Fe, t, s_cos, s_f)
+    #plot_fft(N, freqStep,  Fe, t, s_cos, s_f)
+    plot_fft(N, freqStep,  Fe, t, convolution(s_cos,filtre,N), s_f)
     print(3*'\n')
     
 

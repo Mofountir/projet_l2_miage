@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-
+    <script src="index.js"></script>
     <title>TP2</title>
+    <script>
+        function getNbBatonsRestants() {
+            const batonsElements = document.querySelectorAll('.baton');
+            console.log(batonsElements.length);
+        }
 
+    </script>
 
 </head>
 <body>
@@ -21,23 +27,24 @@
 
     </div>
 
+
     <div>
-        <h2>Nombre de battons souhait&eacute;:</h2>
+        <h2>Nombre de batons souhaités :</h2>
         <div>
-            <p>player: </p>
-            <ul id="nb_battons">
-                <li><a href="reste4.html">1</a></li>
-                <li><a href="reste3.html">2</a></li>
-                <li><a href="reste3.html">3</a></li>
-            </ul>
-        </div>    
+            <p>Joueur 1 : </p>
+            <button class="btn-baton" onclick="redirectToGame(4)">1 baton</button>
+            <button class="btn-baton" onclick="redirectToGame(3)">2 batons</button>
+            <button class="btn-baton" onclick="redirectToGame(2)">3 batons</button>
         
-        <div>
-            <p><a href="index.html">Rejouer</a></p>
+            
+            <button class="btn-rejouer" onclick="redirectHome()">Rejouer</button>
+        
+            <input type="number" id="nb_batons_supprimer" min="1" max="3" placeholder="Nombre de batons à supprimer entre 1 et 3">
+            <button class="btn-supprimer" onclick="supprimerBatons()">Supprimer</button>
+
         </div>
         
     </div>
-
 
    
 </body>
