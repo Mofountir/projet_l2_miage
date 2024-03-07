@@ -16,36 +16,38 @@
 
 </head>
 <body>
-    <h1>TP2: A little game</h1>
-    <div class="container"> 
-        
-        <div class="battons"></div>
-        <div class="battons"></div>  
-        <div class="battons"></div> 
-        <div class="battons"></div>
-        <div class="battons"></div>
-
-    </div>
 
 
-    <div>
-        <h2>Nombre de batons souhaités :</h2>
-        <div>
-            <p>Joueur 1 : </p>
-            <button class="btn-baton" onclick="redirectToGame(4)">1 baton</button>
-            <button class="btn-baton" onclick="redirectToGame(3)">2 batons</button>
-            <button class="btn-baton" onclick="redirectToGame(2)">3 batons</button>
-        
-            
-            <button class="btn-rejouer" onclick="redirectHome()">Rejouer</button>
-        
-            <input type="number" id="nb_batons_supprimer" min="1" max="3" placeholder="Nombre de batons à supprimer entre 1 et 3">
-            <button class="btn-supprimer" onclick="supprimerBatons()">Supprimer</button>
+    <header>
+        <h1>Jeu des batons</h1>
+        <p>Nombre de batons restants : <span id="nb_batons_restants"></span></p>
+    </header>
+      
+    <article>
+        <div class="choix-batons">
+            <label for="nb_batons_commencer">Nombre de batons au départ : </label>
+            <input type="number" id="nb_batons_commencer" min="1" max="30" value="5">
+            <button id="btn_ajouter_batons" onclick=genererBatons()>Ajouter</button>
+            <p>Nombre d'actions restantes : <span id="nb_actions_restantes"></span></p>
 
         </div>
-        
-    </div>
 
-   
+        
+        <div class="container">
+            
+        </div>
+        
+        <div class="supprimer-batons">
+            <label for="nb_batons_supprimer">Nombre de batons à supprimer (entre 1 et 3): </label>
+            <input type="number" id="nb_batons_supprimer" min="1" max="3" placeholder="Nombre de batons à supprimer entre 1 et 3">
+            <button class="btn-supprimer" onclick="supprimerBatons()">Supprimer</button>
+        </div>
+    </article>
+      
+    <footer>
+    
+    </footer>
+
+
 </body>
 </html>
