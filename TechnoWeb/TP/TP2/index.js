@@ -1,12 +1,4 @@
-function redirectToGame(nbBatons) {
-    const url = `reste${nbBatons}.html`;
-    window.location.href = url;
-}
 
-function redirectHome() {
-    window.location.href = 'index.html';
-}
-  
 let nbActionsAjoutBatons = 3;
 
 function genererBatons() {
@@ -22,7 +14,13 @@ function genererBatons() {
 
     for (let i = 0; i < nbBatons; i++) {
         const batonElement = document.createElement('div');
+        batonElement.style.opacity = 0;
+
         batonElement.classList.add('batons');
+        setTimeout(() => {
+            batonElement.style.opacity = 1; // Animer l'opacité à 1
+        }, i * 100);
+
         containerElement.appendChild(batonElement);
     }   
 
@@ -40,28 +38,58 @@ function genererBatons() {
 
 function supprimerBatons() {
     const nbBatonsASupprimer = parseInt(document.getElementById('nb_batons_supprimer').value);
-    const nbBatonsRestants = parseInt(document.querySelector('.choix-batons #nb_batons_commencer').value); // nb batons sur le terrain de jeux
-  
+    var nbBatonsRestants = parseInt(document.querySelector('.choix-batons #nb_batons_commencer').value); // nb batons sur le terrain de jeux
     // Vérifier la validité du nombre saisi
-    if (nbBatonsASupprimer <= 0 || nbBatonsASupprimer > 3 || nbBatonsASupprimer > nbBatonsRestants) {
-      alert("Nombre invalide. Veuillez choisir un nombre entre 1 et 3, et inférieur au nombre de batons restants.");
-      return;
-    }
-  
-    // **Convertir NodeList en tableau**
+    if (nbBatonsASupprimer <= 0 || nbBatonsASupprimer > 3) {
+        alert( "Nombre invalide. Veuillez choisir un nombre entre 1 et 3, et inférieur au nombre de batons restants.");
+    } 
+    
+    
     const batonsElementsArray = Array.from(document.querySelectorAll('.batons'));
-  
-    // **Récupérer les éléments à supprimer**
-    const elementsASupprimer = batonsElementsArray.slice(batonsElementsArray.length - nbBatonsASupprimer);
-  
-    // **Supprimer les éléments en une seule fois**
-    for (const element of elementsASupprimer) {
-      element.parentNode.removeChild(element);
+    // Récupérer les éléments à supprimer
+    if (batonsElementsArray.length >= nbBatonsASupprimer){
+        const elementsASupprimer = batonsElementsArray.slice(batonsElementsArray.length - nbBatonsASupprimer);
+        // Définir l'opacité à 0 pour les éléments à supprimer
+        for (let i = 0; i < elementsASupprimer.length; i++) {
+            elementsASupprimer[i].style.opacity = 0;
+        }
+        setTimeout(() => {
+            // Supprimer les éléments en une seule fois
+            for (let i = 0; i < elementsASupprimer.length; i++) {
+                    elementsASupprimer[i].parentNode.removeChild(elementsASupprimer[i]);
+            }
+            
+
+        }, 500);
+    
+        nbBatonsRestants = batonsElementsArray.length - nbBatonsASupprimer;
+        if(nbBatonsRestants === 1){
+            alert("Félicitations, vous avez gagné !");
+            rejouer()
+        }if(nbBatonsRestants === 0){
+            alert("Dommage, vous avez perdu !");
+            rejouer()
+        }
+        console.log(nbBatonsRestants)
     }
-  
-    // Mettre à jour le nombre de batons restants
-    nbBatonsRestants = nbBatonsRestants - nbBatonsASupprimer;
-  }
-  
+
+    
+    else if(batonsElementsArray.length < nbBatonsASupprimer){
+        alert("Vous ne pouvez pas supprimer plus de batons qu'il n'en reste.");
+    }
+ 
+}
+
+
+
+function rejouer(){
+    location.reload();
+}
+
+
+
+
+
+
 
 
