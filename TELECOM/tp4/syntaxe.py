@@ -58,7 +58,7 @@ def analyse_syntaxique(filename) :
     print("="*60)
     print("\nTrames lues depuis le fichier :\n")
     for i,t in enumerate(trames):
-        print("trame #{} : {}".format(i,t))
+        print("trame #{} : {}".format(i,t)) # ici je peux acceder a chaque trame
 
     # Unhexlify la liste de trames
     unhexlify_lestrames(trames)
@@ -68,9 +68,9 @@ def analyse_syntaxique(filename) :
 #=================================================================
 if __name__ == '__main__':
 
-    filename = "XXX.txt"
+    #filename = "XXX.txt"
     #filename = "a_req.txt"
-    #filename = "d_req.txt"
+    filename = "d_req.txt"
     #filename = "hbin_org.txt"
     #filename = "p_req.txt"
     #filename = "pnull_req.txt"
